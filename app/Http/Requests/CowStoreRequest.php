@@ -2,11 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\CowGenderEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use App\Exceptions\ValidationFailedException;
-
-
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\Rules\Enum;
 
 class CowStoreRequest extends FormRequest
 {
@@ -28,7 +30,7 @@ class CowStoreRequest extends FormRequest
         return [
             'ear_tag_no' => 'required|max:10|unique:cows',
             'name' => 'required|max:25|unique:cows',
-            'gender' => 'required|max:10',
+            'gender' => ['required', new Enum(CowGenderEnum::class) ],
             'date_of_birth' => 'nullable|date',
             'prev_owner_info' => 'nullable|max:30',
             'purchase_price' => 'nullable|max:10',
@@ -42,4 +44,9 @@ class CowStoreRequest extends FormRequest
     {
         throw new ValidationFailedException(json_encode($validator->errors()->all()));
     }
+
+
+
+
+
 }

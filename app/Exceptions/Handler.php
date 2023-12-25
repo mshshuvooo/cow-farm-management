@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 use App\Traits\HttpResponse;
 use Illuminate\Auth\Access\AuthorizationException;
-
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -37,7 +37,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof ValidationFailedException) {
             return $this->error(
                 'Validation Failed',
-                $exception->getMessage()
+                json_decode($exception->getMessage()),
             );
         }
 
@@ -55,6 +55,12 @@ class Handler extends ExceptionHandler
                 $exception->getMessage(),
                 403
             );
+        }
+
+        if ($exception instanceof AuthenticationException) {
+            return response([
+                'message' => 'You are unauthenticated.'
+            ], 401);
         }
 
         return parent::render($request, $exception);

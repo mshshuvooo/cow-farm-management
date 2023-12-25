@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\CowGenderEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,13 +17,12 @@ return new class extends Migration
             $table->timestamps();
             $table->string('ear_tag_no', 10)->unique();
             $table->string( 'name', 25)->unique();
-            $table->string( 'gender', 10);
+            $table->enum('gender', CowGenderEnum::values());
             $table->date('date_of_birth') -> nullable();
             $table->string('prev_owner_info', 30) -> nullable();
-            $table->string('purchase_price', 10) -> nullable();
+            $table->float('purchase_price') -> nullable();
             $table->date('purchase_date') -> nullable();
-            $table->string('mother_name', 25) -> nullable();
-            $table->string('father_bull_no', 10) -> nullable();
+            $table->softDeletes();
         });
     }
 

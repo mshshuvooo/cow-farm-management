@@ -10,7 +10,7 @@
             ],$status);
         }
 
-        protected function error($message,$data = [],$status = 400) {
+        protected function error($message,$data=[],$status = 400) {
             return response([
                 'success' => false,
                 'data' => $data,
