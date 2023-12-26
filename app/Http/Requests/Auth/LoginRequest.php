@@ -49,7 +49,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
+                'failed' => __('auth.failed'),
             ]);
 
         }
@@ -75,7 +75,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'failed' => __('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -91,5 +91,13 @@ class LoginRequest extends FormRequest
     {
         return Str::lower($this->input('email')).'|'.$this->ip();
     }
+
+
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new ValidationFailedException(json_encode($validator->errors()->all()));
+    }
+
 
 }

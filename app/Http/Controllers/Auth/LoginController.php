@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -16,17 +17,18 @@ class LoginController extends Controller
 
     public function store(LoginRequest $request)
     {
-
-        $request->authenticate();
+        try {
+            $request->authenticate();
+        } catch (ValidationException $ex) {
+            return $this->error('Login failed.', $ex->getMessage(), 500);
+        }
 
         $request->session()->regenerate();
         $user = auth()->user();
-        $token = $request->user()->createToken($user->id);
-        return $this->success("Login successful",[
+
+        return $this->success('Login successful', [
             'user' => new UserResource($user),
-            'bearer_token' => $token->plainTextToken,
-            'expiry' => date("Y-m-d H:i:s",strtotime("+12 hours"))
-        ],200);
+        ], 200);
     }
 
     public function destroy(Request $request)

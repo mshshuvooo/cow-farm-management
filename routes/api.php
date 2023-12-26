@@ -23,6 +23,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['web'],], function () {
     Route::post('login', [LoginController::class, 'store']);
+    Route::get('loggedin-user', function() {
+        return response()->json(['user' => auth()->user()]);
+    });
 });
 Route::group(['middleware' => ['auth:sanctum', 'web'],], function () {
     Route::post('logout', [LoginController::class, 'destroy'])->middleware('auth');
