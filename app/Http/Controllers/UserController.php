@@ -41,9 +41,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        $this->authorize('validate-role', [array('admin', 'subscriber')]);
+        return $this->success('User retrieved successfully.', new UserResource($user));
     }
 
 
