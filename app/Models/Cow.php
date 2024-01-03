@@ -12,12 +12,13 @@ class Cow extends Model
         'ear_tag_no',
         'name',
         'gender',
+        'status',
         'date_of_birth',
         'prev_owner_info',
         'purchase_price',
         'purchase_date',
-        'mother_name',
-        'father_bull_no',
+        'mother',
+        'father',
     ];
 
     public static $searchable = [

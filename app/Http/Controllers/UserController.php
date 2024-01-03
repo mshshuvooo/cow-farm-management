@@ -28,7 +28,7 @@ class UserController extends Controller
      */
     public function store(UserRegisterRequest $request, UserService $userService)
     {
-        $this->authorize('validate-role', [array('admin', 'subscriber')]);
+        $this->authorize('validate-role', [array('admin')]);
         try{
             $user_info = $userService->store($request->validated());
             return $this->success('User created successfully.', new UserResource($user_info));
@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, UserService $userService, User $user)
     {
-        $this->authorize('validate-role', [array('admin', 'subscriber')]);
+        $this->authorize('validate-role', [array('admin')]);
         try{
             $userService->update($request->validated(), $user);
             return $this->success('User updated successfully.', new UserResource($user));

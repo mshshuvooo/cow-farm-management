@@ -3,20 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CowStoreRequest;
+use App\Http\Resources\CowResourceSimple;
 use App\Http\Resources\CowResource;
 use App\Models\Cow;
 use Illuminate\Http\Request;
 use App\Traits\HttpResponse;
+use App\Traits\Search;
 
 class CowController extends Controller
 {
     use HttpResponse;
+    use Search;
     /**
+     *
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return CowResource::collection(Cow::all());
+        $this->authorize('validate-role', [array('admin', 'subscriber')]);
+
+        if ($request->display == 'simple') {
+            $cows = Cow::all();
+
+            return CowResourceSimple::collection($cows);
+        }
+
+        $cows =  $this->search(Cow::class,$request)
+        ->when($request->gender, function($query) use($request){
+            $query->where('gender', '=', $request->gender);
+        })
+        ->when($request->status, function($query) use($request){
+            $query->where('status', '=', $request->status);
+        })
+        ->paginate();
+        return CowResource::collection($cows);
     }
 
     /**
