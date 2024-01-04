@@ -29,6 +29,7 @@ class CowResource extends JsonResource
             'purchase_date' => $this->purchase_date,
             'mother' =>  new CowResourceSimple(Cow::whereId($this->mother)->first()),
             'father' => $this->father,
+            'vaccines' => VaccineResourceSimple::collection($this->vaccines),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

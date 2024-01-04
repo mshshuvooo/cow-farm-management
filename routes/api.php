@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CowController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VaccineController;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,9 @@ Route::group(['middleware' => ['auth:sanctum', 'web'],], function () {
     Route::put('users/{user}', [UserController::class, 'update']);
     Route::get("/cows", [CowController::class,"index"]);
     Route::post("/cows", [CowController::class,"store"]);
+
+    Route::post("/vaccines", [VaccineController::class,"store"]);
+    Route::get("/vaccines", [VaccineController::class,"index"]);
 });
 
 

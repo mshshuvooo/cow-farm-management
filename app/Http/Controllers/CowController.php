@@ -12,8 +12,7 @@ use App\Traits\Search;
 
 class CowController extends Controller
 {
-    use HttpResponse;
-    use Search;
+    use HttpResponse, Search;
     /**
      *
      * Display a listing of the resource.
@@ -44,11 +43,12 @@ class CowController extends Controller
      */
     public function store(CowStoreRequest $request)
     {
+        $this->authorize('validate-role', [array('admin')]);
         try{
             $cow = Cow::create($request->validated());
             return $this->success('New cow added successfuly', new CowResource($cow), 201);
         }catch (\Exception $ex) {
-            return $this->errorr('Failed to add new cow', $ex->getMessage());
+            return $this->error('Failed to add new cow', $ex->getMessage());
         }
     }
 

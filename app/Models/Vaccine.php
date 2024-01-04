@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Cow extends Model
+class Vaccine extends Model
 {
     use HasFactory;
 
@@ -15,12 +15,11 @@ class Cow extends Model
     ];
 
     public static $searchable = [
-        'ear_tag_no',
-        'name',
+        'vaccination_date',
     ];
 
-    public function vaccines() : BelongsToMany
+    public function cows() : BelongsToMany
     {
-        return $this->belongsToMany(Vaccine::class);
+        return $this->belongsToMany(Cow::class);
     }
 }
