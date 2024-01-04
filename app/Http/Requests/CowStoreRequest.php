@@ -50,7 +50,7 @@ class CowStoreRequest extends FormRequest
             'mother' => [
                 'nullable',
                 'numeric',
-                Rule::exists('cows', 'id')->where('gender', 'female')
+                Rule::exists('cows', 'id')->where('gender', CowGenderEnum::FEMALE->value)
             ],
             'father' => 'nullable|string',
         ];

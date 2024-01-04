@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\UserRoleEnum;
 use App\Http\Requests\VaccineStoreRequest;
 use App\Http\Resources\VaccineResource;
 use App\Models\Vaccine;
@@ -16,7 +17,10 @@ class VaccineController extends Controller
      */
     public function index()
     {
-        $this->authorize('validate-role', [array('admin', 'subscriber')]);
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value,
+            UserRoleEnum::SUBSCRIBER->value
+        )]);
         $vaccines = Vaccine::paginate();
         return VaccineResource::collection($vaccines);
     }
@@ -26,7 +30,9 @@ class VaccineController extends Controller
      */
     public function store(VaccineStoreRequest $request)
     {
-        $this->authorize('validate-role', [array('admin')]);
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value,
+        )]);
 
         try{
             $vaccine = Vaccine::create($request->validated());

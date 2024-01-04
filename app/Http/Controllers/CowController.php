@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\UserRoleEnum;
 use App\Http\Requests\CowStoreRequest;
 use App\Http\Resources\CowResourceSimple;
 use App\Http\Resources\CowResource;
@@ -19,7 +20,10 @@ class CowController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('validate-role', [array('admin', 'subscriber')]);
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value,
+            UserRoleEnum::SUBSCRIBER->value
+        )]);
 
         if ($request->display == 'simple') {
             $cows = Cow::all();
@@ -43,7 +47,10 @@ class CowController extends Controller
      */
     public function store(CowStoreRequest $request)
     {
-        $this->authorize('validate-role', [array('admin')]);
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value
+        )]);
+
         try{
             $cow = Cow::create($request->validated());
             return $this->success('New cow added successfuly', new CowResource($cow), 201);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\UserRoleEnum;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
@@ -20,6 +21,10 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value,
+            UserRoleEnum::SUBSCRIBER->value
+        )]);
         return UserResource::collection(User::all());
     }
 
@@ -28,7 +33,9 @@ class UserController extends Controller
      */
     public function store(UserRegisterRequest $request, UserService $userService)
     {
-        $this->authorize('validate-role', [array('admin')]);
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value
+        )]);
         try{
             $user_info = $userService->store($request->validated());
             return $this->success('User created successfully.', new UserResource($user_info));
@@ -43,7 +50,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $this->authorize('validate-role', [array('admin', 'subscriber')]);
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value,
+            UserRoleEnum::SUBSCRIBER->value
+        )]);
+
         return $this->success('User retrieved successfully.', new UserResource($user));
     }
 
@@ -53,7 +64,10 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, UserService $userService, User $user)
     {
-        $this->authorize('validate-role', [array('admin')]);
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value,
+        )]);
+
         try{
             $userService->update($request->validated(), $user);
             return $this->success('User updated successfully.', new UserResource($user));

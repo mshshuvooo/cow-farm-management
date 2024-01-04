@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enum\UserRoleEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -38,14 +39,14 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::insert($permissions->toArray());
 
 
-        Role::create(['name' => 'subscriber'])
+        Role::create(['name' => UserRoleEnum::SUBSCRIBER->value])
             ->givePermissionTo([
                 'user_view',
                 'cow_list',
                 'cow_view'
             ]);
 
-        Role::create(['name' => 'admin'])
+        Role::create(['name' => UserRoleEnum::ADMIN->value])
         ->givePermissionTo([Permission::all()]);
 
     }

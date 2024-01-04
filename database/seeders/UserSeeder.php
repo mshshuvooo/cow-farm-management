@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enum\UserRoleEnum;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin_role = Role::where('name', 'admin')->first();
+        $admin_role = Role::where('name', UserRoleEnum::ADMIN->value)->first();
 
         $admin = User::create([
             'name' => 'Shahadat Shuvo',
