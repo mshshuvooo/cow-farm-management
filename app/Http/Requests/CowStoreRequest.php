@@ -45,9 +45,9 @@ class CowStoreRequest extends FormRequest
             ],
             'date_of_birth' => 'nullable|date',
             'prev_owner_info' => 'nullable|string|max:500',
-            'purchase_price' => 'nullable|numeric|max:10',
+            'purchase_price' => 'nullable|numeric',
             'purchase_date' => 'nullable|date',
-            'mother' => [
+            'mother_id' => [
                 'nullable',
                 'numeric',
                 Rule::exists('cows', 'id')->where('gender', CowGenderEnum::FEMALE->value)

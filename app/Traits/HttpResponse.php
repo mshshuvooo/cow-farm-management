@@ -4,7 +4,7 @@
     trait HttpResponse {
         protected function success($message,$data,$status = 200) {
             return response([
-                'succcess' => true,
+                'success' => true,
                 'data' => $data,
                 'message' => $message,
             ],$status);

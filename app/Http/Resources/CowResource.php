@@ -25,7 +25,7 @@ class CowResource extends JsonResource
             'status' => $this->status,
             'date_of_birth' => $this->date_of_birth,
             'prev_owner_info' => $this->prev_owner_info,
-            'purchase_price' => $this->purchase_price,
+            'purchase_price' => number_format($this->purchase_price, 2),
             'purchase_date' => $this->purchase_date,
             'mother' =>  new CowResourceSimple($this->mother),
             'children' => CowResourceSimple::collection($this->children),

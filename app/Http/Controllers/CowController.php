@@ -26,7 +26,13 @@ class CowController extends Controller
         )]);
 
         if ($request->display == 'simple') {
-            $cows = Cow::all();
+            $cows =  $this->search(Cow::class, $request)
+            ->when($request->gender, function($query) use($request){
+                $query->where('gender', '=', $request->gender);
+            })
+            ->when($request->status, function($query) use($request){
+                $query->where('status', '=', $request->status);
+            })->get();
 
             return CowResourceSimple::collection($cows);
         }
@@ -65,9 +71,14 @@ class CowController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Cow $cow)
     {
-        //
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value,
+            UserRoleEnum::SUBSCRIBER->value
+        )]);
+
+        return $this->success('Cow retrieved successfully.', new CowResource($cow));
     }
 
     /**
