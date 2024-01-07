@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth:sanctum', 'web'],], function () {
     Route::get("/cows", [CowController::class,"index"]);
     Route::post("/cows", [CowController::class,"store"]);
     Route::get("/cows/{cow}", [CowController::class,"show"]);
+    Route::put('cows/{cow}', [CowController::class, 'update']);
+
 
     Route::post("/vaccines", [VaccineController::class,"store"]);
     Route::get("/vaccines", [VaccineController::class,"index"]);

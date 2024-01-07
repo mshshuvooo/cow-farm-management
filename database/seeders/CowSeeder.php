@@ -16,21 +16,21 @@ class CowSeeder extends Seeder
     public function run(): void
     {
         Cow::create([
-            "name" => "Cow1",
+            "name" => "Shundori",
             "ear_tag_no" => "1",
             "gender" => CowGenderEnum::FEMALE->value,
             "status" => CowStatusEnum::ACTIVE->value,
         ]);
 
         Cow::create([
-            "name" => "Cow2",
+            "name" => "Shukkur Ali",
             "ear_tag_no" => "2",
             "gender" => CowGenderEnum::MALE->value,
             "status" => CowStatusEnum::ACTIVE->value,
         ]);
 
         Cow::create([
-            "name" => "Cow3",
+            "name" => "Roton",
             "ear_tag_no" => "3",
             "gender" => CowGenderEnum::MALE->value,
             "status" => CowStatusEnum::SOLD->value,
@@ -38,9 +38,9 @@ class CowSeeder extends Seeder
         ]);
 
         Cow::create([
-            "name" => "Cow4",
+            "name" => "Chandu",
             "ear_tag_no" => "4",
-            "gender" => CowGenderEnum::FEMALE->value,
+            "gender" => CowGenderEnum::MALE->value,
             "status" => CowStatusEnum::DEAD->value,
         ]);
     }

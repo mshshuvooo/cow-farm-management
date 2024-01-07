@@ -19,6 +19,7 @@ class CowResourceSimple extends JsonResource
             'ear_tag_no' => $this->ear_tag_no,
             'name' => $this->name,
             'status' => $this->status,
+            'gender' => $this->gender,
         ];
     }
 }

@@ -31,8 +31,8 @@ class CowStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ear_tag_no' => 'required|string|max:10|unique:cows',
-            'name' => 'required|string|max:25|unique:cows',
+            'ear_tag_no' => ['required', 'string', 'max:10', 'unique:cows'],
+            'name' => ['required', 'string', 'max:25', 'unique:cows'],
             'gender' => [
                 'required',
                 'string',
@@ -43,16 +43,16 @@ class CowStoreRequest extends FormRequest
                 'string',
                 new Enum(CowStatusEnum::class)
             ],
-            'date_of_birth' => 'nullable|date',
-            'prev_owner_info' => 'nullable|string|max:500',
-            'purchase_price' => 'nullable|numeric',
-            'purchase_date' => 'nullable|date',
+            'date_of_birth' => ['nullable', 'date'],
+            'prev_owner_info' => ['nullable', 'string', 'max:500'],
+            'purchase_price' => ['nullable', 'numeric'],
+            'purchase_date' => ['nullable', 'date'],
             'mother_id' => [
                 'nullable',
                 'numeric',
                 Rule::exists('cows', 'id')->where('gender', CowGenderEnum::FEMALE->value)
             ],
-            'father' => 'nullable|string',
+            'father' => ['nullable', 'string'],
         ];
     }
 

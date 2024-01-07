@@ -16,7 +16,6 @@ class CowResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
         return [
             'id' => $this->id,
             'ear_tag_no' => $this->ear_tag_no,

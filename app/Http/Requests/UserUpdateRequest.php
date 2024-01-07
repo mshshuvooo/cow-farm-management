@@ -28,7 +28,7 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'name' => 'sometimes',
-            'email' => "sometimes|email",
+            'email' => "sometimes|email|unique:users,email,{$this->user->id}",
             'password' => 'sometimes|min:8',
             'user_role' => ['sometimes', new Enum(UserRoleEnum::class) ],
         ];
