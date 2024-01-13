@@ -82,8 +82,17 @@ class CowController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Cow $cow)
     {
-        //
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value
+        )]);
+
+        try {
+            $cow->delete();
+            return $this->success('Cow deleted.', new CowResource($cow));
+        } catch (\Exception $ex) {
+            return $this->error('Failed to delete the cow', $ex->getMessage());
+        }
     }
 }

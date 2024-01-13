@@ -27,7 +27,7 @@ class CowUpdateRequest extends FormRequest
     {
         return [
             "ear_tag_no" => ["sometimes", "string", "max:10", "unique:cows,ear_tag_no,{$this->cow->id}"],
-            "name" => ["sometimes", "string", "max:25", "unique:cows"],
+            "name" => ["sometimes", "string", "max:25", "unique:cows,name,{$this->cow->id}"],
             "gender" => [
                 "sometimes",
                 "string",
@@ -38,16 +38,20 @@ class CowUpdateRequest extends FormRequest
                 "string",
                 new Enum(CowStatusEnum::class)
             ],
-            "date_of_birth" => ["sometimes", "date"],
-            "prev_owner_info" => ["sometimes", "string", "max:500"],
-            "purchase_price" => ["sometimes", "numeric"],
-            "purchase_date" => ["sometimes", "date"],
+            "date_of_birth" => ["nullable", "date"],
+            "extra_info" => ["nullable", "string", "max:500"],
+            "purchase_price" => ["nullable", "numeric", 'max:1000000'],
+            "purchase_date" => ["nullable", "date"],
             "mother_id" => [
-                "sometimes",
+                "nullable",
                 "numeric",
-                Rule::exists("cows", "id")->where("gender", CowGenderEnum::FEMALE->value)
+                Rule::exists("cows", "id")->where(function ($query)  {
+                    $query
+                    ->where('gender', CowGenderEnum::FEMALE->value)
+                    ->where('id', '!=',$this->cow->id);
+                }),
             ],
-            "father" => ["sometimes", "string"],
+            "father" => ["nullable", "string"],
         ];
     }
 }

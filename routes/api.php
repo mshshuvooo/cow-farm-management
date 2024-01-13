@@ -34,8 +34,9 @@ Route::group(['middleware' => ['auth:sanctum', 'web'],], function () {
     Route::put('users/{user}', [UserController::class, 'update']);
     Route::get("/cows", [CowController::class,"index"]);
     Route::post("/cows", [CowController::class,"store"]);
-    Route::get("/cows/{cow}", [CowController::class,"show"]);
-    Route::put('cows/{cow}', [CowController::class, 'update']);
+    Route::get("/cows/{cow:ear_tag_no}", [CowController::class,"show"]);
+    Route::put('cows/{cow:ear_tag_no}', [CowController::class, 'update']);
+    Route::delete('cows/{cow:ear_tag_no}', [CowController::class, 'destroy']);
 
 
     Route::post("/vaccines", [VaccineController::class,"store"]);

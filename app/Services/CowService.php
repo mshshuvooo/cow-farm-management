@@ -44,12 +44,16 @@ class CowService
     **/
     public function store($data)
     {
+        $data['ear_tag_no'] = preg_replace('/\s+/', '-', $data['ear_tag_no']);
         return Cow::create($data);
     }
 
 
     public function update($data, $cow)
     {
+        if(isset($data['ear_tag_no'])){
+            $data['ear_tag_no'] = preg_replace('/\s+/', '-', $data['ear_tag_no']);
+        }
         $cow->update($data);
         $cow->save();
     }

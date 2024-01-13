@@ -44,8 +44,8 @@ class CowStoreRequest extends FormRequest
                 new Enum(CowStatusEnum::class)
             ],
             'date_of_birth' => ['nullable', 'date'],
-            'prev_owner_info' => ['nullable', 'string', 'max:500'],
-            'purchase_price' => ['nullable', 'numeric'],
+            'extra_info' => ['nullable', 'string', 'max:500'],
+            'purchase_price' => ['nullable', 'numeric', 'max:1000000'],
             'purchase_date' => ['nullable', 'date'],
             'mother_id' => [
                 'nullable',
