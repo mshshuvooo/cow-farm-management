@@ -15,7 +15,9 @@ class VaccineService{
     {
         $vaccines =  $this->search(Vaccine::class, $data)
         ->when($data->cow, function($query) use($data){
-            return Cow::where('id', $data->cow)->first()->vaccines();
+            $query->whereHas('cows', function($query) use($data) {
+                $query->where('id', $data->cow);
+            });
         })
         ->when($data->vaccine_type, function($query) use($data){
             $query->where('vaccine_type', '=', $data->vaccine_type);
