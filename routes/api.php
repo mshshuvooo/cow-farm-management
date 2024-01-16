@@ -39,8 +39,9 @@ Route::group(['middleware' => ['auth:sanctum', 'web'],], function () {
     Route::delete('cows/{cow:ear_tag_no}', [CowController::class, 'destroy']);
 
 
-    Route::post("/vaccines", [VaccineController::class,"store"]);
     Route::get("/vaccines", [VaccineController::class,"index"]);
+    Route::post("/vaccines", [VaccineController::class,"store"]);
+    Route::get("/vaccines/{vaccine}", [VaccineController::class,"show"]);
 });
 
 

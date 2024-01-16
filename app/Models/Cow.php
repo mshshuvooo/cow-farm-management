@@ -22,6 +22,7 @@ class Cow extends Model
         'name',
     ];
 
+
     public function vaccines() : BelongsToMany
     {
         return $this->belongsToMany(Vaccine::class);

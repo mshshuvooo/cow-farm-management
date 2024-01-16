@@ -48,7 +48,12 @@ class VaccineController extends Controller
      */
     public function show(Vaccine $vaccine)
     {
-        //
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value,
+            UserRoleEnum::SUBSCRIBER->value
+        )]);
+
+        return $this->success('Vaccine retrieved successfully.', new VaccineResource($vaccine));
     }
 
     /**

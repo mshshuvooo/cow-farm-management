@@ -4,7 +4,9 @@ namespace App\Services;
 use App\Http\Resources\CowResource;
 use App\Http\Resources\CowResourceSimple;
 use App\Models\Cow;
+use App\Models\Vaccine;
 use App\Traits\Search;
+use Illuminate\Support\Facades\DB;
 
 class CowService
 {
@@ -29,12 +31,22 @@ class CowService
         }
 
         $cows =  $this->search(Cow::class,$data)
+        ->when($data->vaccine_id, function($query) use($data){
+            $query->whereHas('vaccines', function($query) use($data) {
+                $query->where('id', $data->vaccine_id);
+            });
+        })
+
         ->when($data->gender, function($query) use($data){
             $query->where('gender', '=', $data->gender);
         })
         ->when($data->status, function($query) use($data){
             $query->where('status', '=', $data->status);
-        })->paginate();
+        })
+
+        ->paginate();
+
+
 
         return CowResource::collection($cows);
     }

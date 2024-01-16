@@ -5,7 +5,7 @@ use App\Http\Resources\VaccineResourceSimple;
 use App\Models\Cow;
 use App\Models\Vaccine;
 use App\Traits\Search;
-
+use Illuminate\Support\Facades\DB;
 
 class VaccineService{
 
