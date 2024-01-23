@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\VaccineDoseEnum;
 use App\Enum\VaccineTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,11 +26,17 @@ class VaccineStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'vaccination_date' => ['required', 'date'],
+            'vaccination_date' => ['required', 'date', 'before:tomorrow'],
+            'next_vaccination_date' => ['required', 'date', 'after:today'],
             'vaccine_type' => [
                 'required',
                 'string',
                 new Enum(VaccineTypeEnum::class)
+            ],
+            'dose' => [
+                'required',
+                'string',
+                new Enum(VaccineDoseEnum::class)
             ],
             'cows' => ['required', 'array', 'min:1', Rule::exists('cows', 'id')],
         ];

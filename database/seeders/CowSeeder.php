@@ -16,34 +16,34 @@ class CowSeeder extends Seeder
      */
     public function run(): void
     {
-        CowFactory::new()->count(30000)->create();
-        // Cow::create([
-        //     "name" => "Shundori",
-        //     "ear_tag_no" => "1",
-        //     "gender" => CowGenderEnum::FEMALE->value,
-        //     "status" => CowStatusEnum::ACTIVE->value,
-        // ]);
+        //CowFactory::new()->count(18)->create();
+        Cow::create([
+            "name" => "Shundori",
+            "ear_tag_no" => "1",
+            "gender" => CowGenderEnum::FEMALE->value,
+            "status" => CowStatusEnum::ACTIVE->value,
+        ]);
 
-        // Cow::create([
-        //     "name" => "Shukkur Ali",
-        //     "ear_tag_no" => "2",
-        //     "gender" => CowGenderEnum::MALE->value,
-        //     "status" => CowStatusEnum::ACTIVE->value,
-        // ]);
+        Cow::create([
+            "name" => "Shukkur Ali",
+            "ear_tag_no" => "2",
+            "gender" => CowGenderEnum::MALE->value,
+            "status" => CowStatusEnum::ACTIVE->value,
+        ]);
 
-        // Cow::create([
-        //     "name" => "Roton",
-        //     "ear_tag_no" => "3",
-        //     "gender" => CowGenderEnum::MALE->value,
-        //     "status" => CowStatusEnum::SOLD->value,
-        //     "mother_id" => "1",
-        // ]);
+        Cow::create([
+            "name" => "Roton",
+            "ear_tag_no" => "3",
+            "gender" => CowGenderEnum::MALE->value,
+            "status" => CowStatusEnum::SOLD->value,
+            "mother_id" => "1",
+        ]);
 
-        // Cow::create([
-        //     "name" => "Chandu",
-        //     "ear_tag_no" => "4",
-        //     "gender" => CowGenderEnum::MALE->value,
-        //     "status" => CowStatusEnum::DEAD->value,
-        // ]);
+        Cow::create([
+            "name" => "Chandu",
+            "ear_tag_no" => "4",
+            "gender" => CowGenderEnum::MALE->value,
+            "status" => CowStatusEnum::DEAD->value,
+        ]);
     }
 }

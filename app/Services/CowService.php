@@ -6,6 +6,7 @@ use App\Http\Resources\CowResourceSimple;
 use App\Models\Cow;
 use App\Models\Vaccine;
 use App\Traits\Search;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class CowService
@@ -46,6 +47,13 @@ class CowService
 
         ->paginate();
 
+        // $today = Carbon::now();
+        // $tomorrow = $today->addDays(1);
+        // $tomorrow = $tomorrow->format('Y-m-d');
+        // $cows = Cow::whereHas('vaccines', function($query) use($tomorrow) {
+        //     $query->where('vaccine_type', 'anthrax')
+        //     ->where('next_vaccination_date', $tomorrow);
+        // })->get();
 
 
         return CowResource::collection($cows);

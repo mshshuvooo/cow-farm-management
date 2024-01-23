@@ -8,7 +8,8 @@ enum VaccineTypeEnum:string
     case ANTHRAX = 'anthrax';
     case BQ = 'bq';
     case HS = 'hs';
-    case DEWORMER = 'dewormer';
+    case DEWORMER_TAB = 'dewormer_tab';
+    case DEWORMER_INJ = 'dewormer_inj';
     case LUMPY = 'lumpy';
 
     public static function values(): array

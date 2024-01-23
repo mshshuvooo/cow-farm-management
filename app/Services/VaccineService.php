@@ -5,6 +5,7 @@ use App\Http\Resources\VaccineResourceSimple;
 use App\Models\Cow;
 use App\Models\Vaccine;
 use App\Traits\Search;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class VaccineService{
@@ -28,8 +29,13 @@ class VaccineService{
 
     public function store($data)
     {
-        $vaccine = Vaccine::create($data);
-        $vaccine->cows()->sync($data['cows']);
-        return $vaccine;
+        return(
+            DB::transaction(function () use($data) {
+                $vaccine = Vaccine::create($data);
+                $vaccine->cows()->sync($data['cows']);
+                return $vaccine;
+            }, 5)
+        );
+
     }
 }

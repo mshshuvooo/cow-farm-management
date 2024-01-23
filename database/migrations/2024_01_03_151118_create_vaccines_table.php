@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\VaccineDoseEnum;
 use App\Enum\VaccineTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,6 +16,8 @@ return new class extends Migration
         Schema::create('vaccines', function (Blueprint $table) {
             $table->id();
             $table->date('vaccination_date');
+            $table->date('next_vaccination_date');
+            $table->enum('dose', VaccineDoseEnum::values());
             $table->enum('vaccine_type', VaccineTypeEnum::values());
             $table->timestamps();
             $table->softDeletes();

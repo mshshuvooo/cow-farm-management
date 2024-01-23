@@ -2,8 +2,12 @@
 
 namespace App\Console;
 
+use App\Http\Resources\CowResource;
+use App\Models\Cow;
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -12,7 +16,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        // $schedule->call(function () {
+
+        // })->daily()->timeZone('Asia/Dhaka')->at('8:00');
+
+        // $schedule->call(function () {
+        //     $cows = array('id'=> 1, 'id'=> 2);
+        //     var_dump($cows);
+        // })->everyMinute();
+
+        $schedule->command('vaccine-notification:fmd')->everyMinute();
     }
 
     /**
