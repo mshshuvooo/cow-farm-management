@@ -38,4 +38,12 @@ class VaccineService{
         );
 
     }
+
+    public function update($data, $vaccine){
+        DB::transaction(function () use($data, $vaccine) {
+            $vaccine->cows()->sync($data['cows']);
+            $vaccine->update($data);
+            $vaccine->save();
+        }, 5);
+    }
 }

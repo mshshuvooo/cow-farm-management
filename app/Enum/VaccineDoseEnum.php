@@ -4,7 +4,7 @@ namespace App\Enum;
 
 enum VaccineDoseEnum:string
 {
-    case FIRST = 'first';
+    case REGULAR = 'regular';
     case BOOSTER = 'booster';
 
     public static function values(): array

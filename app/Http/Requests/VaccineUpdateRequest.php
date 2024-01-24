@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
-class VaccineStoreRequest extends FormRequest
+class VaccineUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,19 +26,19 @@ class VaccineStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'vaccination_date' => ['required', 'date', 'before:tomorrow'],
-            'next_vaccination_date' => ['required', 'date', 'after:vaccination_date'],
+            'vaccination_date' => ['sometimes', 'date', 'before:tomorrow'],
+            'next_vaccination_date' => ['sometimes', 'date', 'after:vaccination_date'],
             'vaccine_type' => [
-                'required',
+                'sometimes',
                 'string',
                 new Enum(VaccineTypeEnum::class)
             ],
             'dose' => [
-                'required',
+                'sometimes',
                 'string',
                 new Enum(VaccineDoseEnum::class)
             ],
-            'cows' => ['required', 'array', 'min:1', Rule::exists('cows', 'id')],
+            'cows' => ['sometimes', 'array', 'min:1', Rule::exists('cows', 'id')],
         ];
     }
 }

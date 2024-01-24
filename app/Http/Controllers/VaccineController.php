@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enum\UserRoleEnum;
 use App\Http\Requests\VaccineStoreRequest;
+use App\Http\Requests\VaccineUpdateRequest;
 use App\Http\Resources\VaccineResource;
 use App\Models\Vaccine;
 use App\Services\VaccineService;
@@ -56,20 +57,22 @@ class VaccineController extends Controller
         return $this->success('Vaccine retrieved successfully.', new VaccineResource($vaccine));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Vaccine $vaccine)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Vaccine $vaccine)
+    public function update(VaccineUpdateRequest $request, VaccineService $vaccine_service, Vaccine $vaccine)
     {
-        //
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value
+        )]);
+
+        try{
+            $vaccine_service->update($request->validated(), $vaccine);
+            return $this->success('Vaccine updated successfully', new VaccineResource($vaccine));
+        }catch(\Exception $ex){
+            return $this->error('Failed to update the vaccine', $ex->getMessage());
+        }
     }
 
     /**
@@ -77,6 +80,15 @@ class VaccineController extends Controller
      */
     public function destroy(Vaccine $vaccine)
     {
-        //
+        $this->authorize('validate-role', [array(
+            UserRoleEnum::ADMIN->value
+        )]);
+
+        try {
+            $vaccine->delete();
+            return $this->success('Vaccine deleted.', new VaccineResource($vaccine));
+        } catch (\Exception $ex) {
+            return $this->error('Failed to delete the vaccine', $ex->getMessage());
+        }
     }
 }
