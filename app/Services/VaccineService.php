@@ -17,7 +17,7 @@ class VaccineService{
         $vaccines =  $this->search(Vaccine::class, $data)
         ->when($data->cow, function($query) use($data){
             $query->whereHas('cows', function($query) use($data) {
-                $query->where('id', $data->cow);
+                $query->where('ear_tag_no', $data->cow);
             });
         })
         ->when($data->vaccine_type, function($query) use($data){
@@ -31,6 +31,7 @@ class VaccineService{
     {
         return(
             DB::transaction(function () use($data) {
+
                 $vaccine = Vaccine::create($data);
                 $vaccine->cows()->sync($data['cows']);
                 return $vaccine;
