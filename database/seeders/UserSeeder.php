@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
 
         $admin = User::create([
             'name' => 'Shahadat Shuvo',
-            'email' => 'shuvo@wardtech.co.uk',
+            'email' => 'msh.shuvooo@gmail.com',
             'user_role' => 'admin',
             'password' => bcrypt('12345678')
         ]);
@@ -31,8 +31,8 @@ class UserSeeder extends Seeder
         $subscriber_role = Role::where('name', UserRoleEnum::SUBSCRIBER->value)->first();
 
         $subscriber = User::create([
-            'name' => 'Tom',
-            'email' => 'tom@wardtech.co.uk',
+            'name' => 'Shahadat Hosssain',
+            'email' => 'test@domain.com',
             'user_role' => 'subscriber',
             'password' => bcrypt('12345678')
         ]);
