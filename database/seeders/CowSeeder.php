@@ -29,6 +29,7 @@ class CowSeeder extends Seeder
             "ear_tag_no" => "2",
             "gender" => CowGenderEnum::MALE->value,
             "status" => CowStatusEnum::ACTIVE->value,
+            "father_id" => "2",
         ]);
 
         Cow::create([
@@ -37,6 +38,7 @@ class CowSeeder extends Seeder
             "gender" => CowGenderEnum::MALE->value,
             "status" => CowStatusEnum::SOLD->value,
             "mother_id" => "1",
+            "father_id" => "1",
         ]);
 
         Cow::create([

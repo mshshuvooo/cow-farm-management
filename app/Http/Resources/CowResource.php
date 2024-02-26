@@ -16,6 +16,7 @@ class CowResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        //print_r($this->father);
         return [
             'id' => $this->id,
             'ear_tag_no' => $this->ear_tag_no,
@@ -28,7 +29,7 @@ class CowResource extends JsonResource
             'purchase_date' => $this->purchase_date,
             'mother' =>  new CowResourceSimple($this->mother),
             'children' => CowResourceSimple::collection($this->children),
-            'father' => $this->father,
+            'father' => new BreedingBullResource($this->father),
             'vaccines' => VaccineResourceSimple::collection($this->vaccines),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

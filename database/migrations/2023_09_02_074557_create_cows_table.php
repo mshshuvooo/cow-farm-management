@@ -25,7 +25,7 @@ return new class extends Migration
             $table->bigInteger('purchase_price') -> nullable();
             $table->date('purchase_date') -> nullable();
             $table->string('mother_id') -> nullable();
-            $table->string('father') -> nullable();
+            $table->string('father_id') -> nullable();
             $table->softDeletes();
         });
     }

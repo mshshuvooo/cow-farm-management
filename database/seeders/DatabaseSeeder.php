@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(CowSeeder::class);
         $this->call(VaccineSeeder::class);
+        $this->call(BreedingBullSeeder::class);
     }
 }

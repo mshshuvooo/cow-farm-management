@@ -32,6 +32,10 @@ class Cow extends Model
         return $this->belongsTo(Cow::class,'mother_id','id');
     }
 
+    public function father() : BelongsTo {
+        return $this->belongsTo(BreedingBull::class,'father_id','id');
+    }
+
     public function children() : HasMany {
         return $this->hasMany(Cow::class,'mother_id','id');
     }

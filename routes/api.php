@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BreedingBullController;
 use App\Http\Controllers\CowController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VaccineController;
@@ -44,6 +45,12 @@ Route::group(['middleware' => ['auth:sanctum', 'web'],], function () {
     Route::put("/vaccines/{vaccine}", [VaccineController::class,"update"]);
     Route::get("/vaccines/{vaccine}", [VaccineController::class,"show"]);
     Route::delete("/vaccines/{vaccine}", [VaccineController::class,"destroy"]);
+
+    Route::get("/breeding-bulls", [BreedingBullController::class,"index"]);
+    Route::post("/breeding-bulls", [BreedingBullController::class,"store"]);
+    Route::put("/breeding-bulls/{breeding_bull}", [BreedingBullController::class,"update"]);
+    Route::get("/breeding-bulls/{breeding_bull}", [BreedingBullController::class,"show"]);
+    Route::delete("/breeding-bulls/{breeding_bull}", [BreedingBullController::class,"destroy"]);
 });
 
 

@@ -52,7 +52,11 @@ class CowStoreRequest extends FormRequest
                 'numeric',
                 Rule::exists('cows', 'id')->where('gender', CowGenderEnum::FEMALE->value)
             ],
-            'father' => ['nullable', 'string'],
+            'father_id' => [
+                'nullable',
+                'numeric',
+                Rule::exists('breeding_bulls', 'id')
+            ]
         ];
     }
 
